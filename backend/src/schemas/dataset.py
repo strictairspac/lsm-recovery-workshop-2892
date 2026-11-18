@@ -4,6 +4,7 @@ class Entry(BaseModel):
     op:Literal['put','delete']
     key:str=Field(min_length=1,max_length=64)
     value:str|None=Field(default=None,max_length=200)
+    group:str|None=Field(default=None,min_length=1,max_length=64)
     @model_validator(mode='after')
     def check_value(self):
         if self.op=='put' and self.value is None:raise ValueError('put 操作必须包含字符串 value')
